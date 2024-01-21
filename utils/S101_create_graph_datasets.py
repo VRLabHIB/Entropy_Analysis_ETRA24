@@ -35,34 +35,6 @@ def prepare_dataset(df, AOI_lst, datasets):
 
         df = df[np.logical_or(df['RightPupilSize'] != -1, df['LeftPupilSize'] != -1)]
 
-    if datasets=='vir':
-        # cut end of experiment
-        df = df[np.logical_and(df['Time'] >= 0, df['Time'] <= 600)]
-
-        # rename AOIs
-        df['GazeTargetObject'] = rename_AOI_names(df, AOI_lst, datasets)
-
-        df['HeadDirectionYAngle'] = calculate_head_directionY_angle(df, datasets)
-
-        # rename AOIs
-        df['GazeTargetObject'] = rename_AOI_names(df, AOI_lst, datasets)
-
-        df = df[['Time', 'TimeDiff', 'GazeTargetObject', 'RightPupilSize', 'LeftPupilSize',
-                 'HeadDirectionYAngle', 'RayDistanceGaze', 'GazeHitPointX', 'GazeHitPointY',
-                 'GazeHitPointZ']]
-
-        df['RightPupilSize'] = df['RightPupilSize'].replace(np.nan, -1)
-        df['LeftPupilSize'] = df['LeftPupilSize'].replace(np.nan, -1)
-        df = df[np.logical_or(df['RightPupilSize'] != -1, df['LeftPupilSize'] != -1)]
-
-
-    # clean dataset
-    df['RightPupilSize'] = df['RightPupilSize'].replace(-1, np.nan)
-    df['LeftPupilSize'] = df['LeftPupilSize'].replace(-1, np.nan)
-    df['GazeTargetObject'] = interpolate_AOI_objects(df)
-    df['GazeTargetObject'] = df['GazeTargetObject'].astype(str)
-    df.insert(3, 'GazeTargetObject_Times', calculate_aoi_times(df, 'GazeTargetObject'))
-    df = df[df['GazeTargetObject'] != 'none']
     return df
 
 
@@ -70,8 +42,6 @@ class FullSessionDataset:
     def __init__(self, name, identifier, condition, save_path, AOI_lst, datasets):
         if datasets == 'big':
             os.chdir("V:/Big-Fish_VR_Classroom/data/full_eye_tracking_data/")
-        if datasets == 'vir':
-            os.chdir(r'V:\VirATeC\data\VirATeC_ADR\1_full_sessions')
 
         self.df = pd.read_csv(name, low_memory=False)
         self.datasets = datasets

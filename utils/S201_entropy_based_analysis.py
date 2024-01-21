@@ -14,8 +14,6 @@ today = date.today()
 def locate_transition_data(project_path, datasets):
     if datasets == 'big':
         data_path = project_path + '\\data\\big\\'
-    if datasets == 'vir':
-        data_path = project_path + '\\data\\vir\\'
 
     os.chdir(data_path)
     lst = glob.glob("*_trans.csv")
@@ -29,8 +27,6 @@ def locate_transition_data(project_path, datasets):
 def locate_node_data(project_path, datasets):
     if datasets == 'big':
         data_path = project_path + '\\data\\big\\'
-    if datasets == 'vir':
-        data_path = project_path + '\\data\\vir\\'
 
     os.chdir(data_path)
     lst = glob.glob("*_node.csv")
@@ -98,9 +94,7 @@ def calculate_entropy_measures(project_path, AOI_lst, datasets):
     # use stepsize of 10sec with 30 sec intervals (20sec overlap)
     length = 10
     if datasets == 'big':
-        interval_starts = np.arange(0, 850, length)
-    if datasets == 'vir':
-        interval_starts = np.arange(0, 600, length)
+        interval_starts = np.arange(0, 820, length)
 
     dataset_lst = list()
     identifier_lst = list()
@@ -143,8 +137,6 @@ def calculate_entropy_measures(project_path, AOI_lst, datasets):
                 if len(dfTs) == 0:
                     if datasets == 'big':
                         P = np.zeros((26, 26))
-                    if datasets == 'vir':
-                        P = np.zeros((19, 19))
 
                 dfNs = dfNs.drop(columns=['ID', 'Condition'])
 

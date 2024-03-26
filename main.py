@@ -3,7 +3,7 @@ import pandas as pd
 import os
 import glob
 
-from utils.S101_create_graph_datasets import FullSessionDataset
+from utils.S101_create_transition_datasets import FullSessionDataset
 from utils.S201_entropy_based_analysis_3AOIs import calculate_entropy_measures_3AOIs
 from utils.helper import delete_files_in_directory
 from utils.S201_entropy_based_analysis import calculate_entropy_measures
@@ -26,6 +26,7 @@ if __name__ == '__main__':
     # clean nodes and transition folder
     # delete_files_in_directory(big_save_path)
 
+    ### Data Aggregation ###
     """
     print('Create Big-Fish Transition Datasets:')
     for i in range(len(big_raw_lst)):

@@ -27,6 +27,7 @@ if __name__ == '__main__':
     # delete_files_in_directory(big_save_path)
 
     ### Data Aggregation ###
+    # Create transition datasets
     """
     print('Create Big-Fish Transition Datasets:')
     for i in range(len(big_raw_lst)):
